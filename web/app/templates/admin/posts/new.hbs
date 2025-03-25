@@ -1,0 +1,13 @@
+<h2>New Post</h2>
+<form {{on "submit" this.createPost}}>
+  <div>
+    <label for="title">Title</label>
+    <Input @value={{this.title}} id="title" />
+  </div>
+  <div>
+    <label for="body">Body</label>
+    <Textarea @value={{this.body}} id="body" />
+  </div>
+
+  <button type="submit">Submit</button>
+</form>

@@ -1,5 +1,7 @@
-{{#each @model as |post|}}
-  <Post @post={{post}} @link={{true}} />
-{{/each}}
+<div class="posts">
+  {{#each @model as |post|}}
+    <Post @post={{post}} @link={{true}} />
+  {{/each}}
+</div>
 
-<LinkTo @route="admin.posts.new">admin</LinkTo>
+<LinkTo @route="admin.posts">admin</LinkTo>

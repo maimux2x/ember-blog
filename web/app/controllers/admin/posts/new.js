@@ -1,10 +1,13 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { service } from '@ember/service';
 
 export default class AdminPostsNewController extends Controller {
+  @service router;
+
   @tracked title = '';
-  @tracked body  = '';
+  @tracked body = '';
 
   @action
   async createPost(event) {
@@ -26,6 +29,8 @@ export default class AdminPostsNewController extends Controller {
 
     if (!response.ok) {
       throw new Error('Failed to create post');
+    } else {
+      this.router.transitionTo('admin.posts');
     }
   }
 }

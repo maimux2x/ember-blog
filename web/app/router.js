@@ -14,6 +14,7 @@ Router.map(function () {
   this.route('admin', function () {
     this.route('posts', function () {
       this.route('new');
+      this.route('edit', { path: 'edit/:post_id' });
     });
   });
 });

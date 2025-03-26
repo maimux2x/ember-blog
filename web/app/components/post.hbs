@@ -1,10 +1,12 @@
-<h2>
-  {{#if @link}}
-    <LinkTo @route="posts.show" @model={{@post.id}}>{{@post.title}}</LinkTo>
-  {{else}}
-    {{@post.title}}
-  {{/if}}
-</h2>
-<div>
-  {{@post.body}}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title">
+      {{#if @link}}
+        <LinkTo @route="posts.show" @model={{@post.id}}>{{@post.title}}</LinkTo>
+      {{else}}
+        {{@post.title}}
+      {{/if}}
+    </h5>
+    <div class="body card-text">{{@post.body}}</div>
+  </div>
 </div>

@@ -3,7 +3,6 @@
     <tr>
       <th>Title</th>
       <th>Created at</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -11,7 +10,6 @@
       <tr>
         <td><LinkTo @route="admin.posts.edit" @model={{post.id}}>{{post.title}}</LinkTo></td>
         <td>{{format-datetime post.created_at}}</td>
-        <td><button type="button" class="btn btn-danger" {{on "click" (fn this.delete post)}}>Delete</button></td>
       </tr>
     {{/each}}
   </tbody>

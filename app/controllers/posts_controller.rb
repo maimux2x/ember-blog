@@ -1,4 +1,8 @@
 class PostsController < ApplicationController
+  rescue_from ActiveRecord::RecordInvalid do |e|
+    render json: { errors: e.record.errors }, status: :unprocessable_content
+  end
+
   def index
     @posts = Post.all.order(created_at: :desc)
   end
@@ -8,14 +12,19 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    post.save!
+    Post.create!(post_params)
+    head :created
   end
 
   def update
+    post = Post.find(params[:id])
+    post.update!(post_params)
+    head :ok
   end
 
   def destroy
+    Post.find(params[:id]).destroy!
+    head :ok
   end
 
   private

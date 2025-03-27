@@ -1,22 +1,13 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 
 export default class AdminPostsNewController extends Controller {
   @service router;
 
-  @tracked title = '';
-  @tracked body = '';
-
   @action
   async createPost(event) {
     event.preventDefault();
-
-    const newPost = {
-      title: this.title,
-      body: this.body,
-    };
 
     const response = await fetch('http://localhost:3000/posts', {
       method: 'POST',
@@ -24,11 +15,17 @@ export default class AdminPostsNewController extends Controller {
         'Content-Type': 'application/json',
       },
 
-      body: JSON.stringify({ post: newPost }),
+      body: JSON.stringify({
+        post: {
+          title: this.model.title,
+          body: this.model.body,
+        },
+      }),
     });
 
     if (!response.ok) {
-      throw new Error('Failed to create post');
+      const json = await response.json();
+      this.model.errors = json.errors;
     } else {
       this.router.transitionTo('admin.posts');
     }

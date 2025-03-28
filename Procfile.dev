@@ -1,0 +1,2 @@
+api: bin/dev --port 3000
+web: cd web && PORT=4200 npm start

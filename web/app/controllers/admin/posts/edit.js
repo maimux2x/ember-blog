@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 
 export default class AdminPostsEditController extends Controller {
   @service router;
+  @service toast;
 
   @action
   async updatePost(event) {
@@ -31,6 +32,8 @@ export default class AdminPostsEditController extends Controller {
       this.model.errors = json.errors;
     } else {
       this.router.transitionTo('admin.posts');
+
+      this.toast.show('Post updated successfully', 'success');
     }
   }
 
@@ -51,6 +54,8 @@ export default class AdminPostsEditController extends Controller {
       throw new Error('Faild to delete post');
     } else {
       this.router.transitionTo('admin.posts');
+
+      this.toast.show('Post deleted successfully', 'success');
     }
   }
 }

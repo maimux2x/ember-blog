@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 
 export default class AdminPostsNewController extends Controller {
   @service router;
+  @service toast;
 
   @action
   async createPost(event) {
@@ -28,6 +29,8 @@ export default class AdminPostsNewController extends Controller {
       this.model.errors = json.errors;
     } else {
       this.router.transitionTo('admin.posts');
+
+      this.toast.show('Post created successfully', 'success');
     }
   }
 }

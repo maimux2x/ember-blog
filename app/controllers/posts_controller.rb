@@ -1,4 +1,6 @@
 class PostsController < ApplicationController
+  before_action :verify_token, only: [ :create, :update, :destroy ]
+
   rescue_from ActiveRecord::RecordInvalid do |e|
     render json: { errors: e.record.errors }, status: :unprocessable_content
   end

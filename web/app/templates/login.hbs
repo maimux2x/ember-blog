@@ -1,0 +1,15 @@
+<form {{on "submit" this.createToken}}>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <Input @value={{@model.email}} id="email" class="form-control {{if @model.error "is-invalid"}}" @type="email" />
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <Input @value={{@model.password}} id="password" class="form-control {{if @model.error "is-invalid"}}" @type="password" />
+    <div class="error invalid-feedback">
+      {{@model.error}}
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>

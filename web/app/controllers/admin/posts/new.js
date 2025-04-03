@@ -5,6 +5,7 @@ import { service } from '@ember/service';
 export default class AdminPostsNewController extends Controller {
   @service router;
   @service toast;
+  @service session;
 
   @action
   async createPost(event) {
@@ -14,6 +15,7 @@ export default class AdminPostsNewController extends Controller {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.session.token}`,
       },
 
       body: JSON.stringify({

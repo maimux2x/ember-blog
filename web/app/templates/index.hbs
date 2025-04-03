@@ -4,4 +4,8 @@
   {{/each}}
 </div>
 
-<LinkTo @route="admin.posts">admin</LinkTo>
+{{#if this.session.isLogedIn}}
+  <LinkTo @route="admin.posts">admin</LinkTo>
+{{else}}
+  <LinkTo @route="login">login</LinkTo>
+{{/if}}

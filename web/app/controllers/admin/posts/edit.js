@@ -5,6 +5,7 @@ import { service } from '@ember/service';
 export default class AdminPostsEditController extends Controller {
   @service router;
   @service toast;
+  @service session;
 
   @action
   async updatePost(event) {
@@ -16,6 +17,7 @@ export default class AdminPostsEditController extends Controller {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.session.token}`,
         },
 
         body: JSON.stringify({
@@ -47,6 +49,9 @@ export default class AdminPostsEditController extends Controller {
       `http://localhost:3000/posts/${this.model.id}`,
       {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${this.session.token}`,
+        },
       },
     );
 

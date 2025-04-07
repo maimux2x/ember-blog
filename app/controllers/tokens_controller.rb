@@ -10,7 +10,7 @@ class TokensController < ApplicationController
       data  = { user_id: user.id }
       token = JWT.encode(data, Rails.application.secret_key_base)
 
-      render json: { token: }, status: :ok
+      render json: { token: }, status: :created
     else
       head :unauthorized
     end

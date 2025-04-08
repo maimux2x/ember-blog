@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    {{#each @model as |post|}}
+    {{#each @model.posts as |post|}}
       <tr>
         <td><LinkTo @route="admin.posts.edit" @model={{post.id}}>{{post.title}}</LinkTo></td>
         <td>{{format-datetime post.created_at}}</td>
@@ -17,6 +17,8 @@
     {{/each}}
   </tbody>
 </table>
+
+<Pagination @route="admin.posts" @current={{this.page}} @last={{@model.total_pages}} />
 
 <div class="mt-3">
   <LinkTo @route="admin.posts.new">New</LinkTo>

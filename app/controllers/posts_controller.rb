@@ -7,6 +7,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.order(created_at: :desc).page(params[:page])
+    @posts = @posts.where("title LIKE :query OR body LIKE :query", query: "%#{ActiveRecord::Base.sanitize_sql_like(params[:query])}%") if params[:query]
   end
 
   def show

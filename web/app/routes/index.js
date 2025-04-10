@@ -10,6 +10,7 @@ export default class IndexRoute extends Route {
   async model(args) {
     const url = new URL('http://localhost:3000/posts');
     url.searchParams.set('page', args.page);
+    url.searchParams.set('query', args.query);
 
     return await fetch(url).then((res) => res.json());
   }

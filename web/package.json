@@ -81,5 +81,8 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "@rails/activestorage": "^8.0.200"
   }
 }

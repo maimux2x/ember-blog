@@ -1,3 +1,7 @@
 div.body {
   white-space: pre-wrap;
 }
+
+image {
+  width: 50%;
+}

@@ -5,14 +5,18 @@ import { action } from '@ember/object';
 export default class PostFormComponent extends Component {
   @action
   uploadImage(e) {
-    const upload = new DirectUpload(
-      e.target.files[0],
-      'http://localhost:3000/rails/active_storage/direct_uploads',
-      {},
-    );
+    this.args.post.images = [];
 
-    upload.create((error, blob) => {
-      this.args.post.image = blob.signed_id;
-    });
+    for (const file of e.target.files) {
+      const upload = new DirectUpload(
+        file,
+        'http://localhost:3000/rails/active_storage/direct_uploads',
+        {},
+      );
+
+      upload.create((error, blob) => {
+        this.args.post.images.push(blob.signed_id);
+      });
+    }
   }
 }

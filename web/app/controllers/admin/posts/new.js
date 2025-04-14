@@ -22,7 +22,7 @@ export default class AdminPostsNewController extends Controller {
         post: {
           title: this.model.title,
           body: this.model.body,
-          image: this.model.image,
+          images: this.model.images,
         },
       }),
     });

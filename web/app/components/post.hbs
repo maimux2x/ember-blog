@@ -1,17 +1,15 @@
 <div class="card mb-3">
   <div class="card-body">
-    <h5 class="card-title">
+    <h2 class="card-title">
       {{#if @link}}
         <LinkTo @route="posts.show" @model={{@post.id}}>{{@post.title}}</LinkTo>
       {{else}}
         {{@post.title}}
       {{/if}}
-    </h5>
-    <div class="body card-text">
-      {{@post.body}}
-      {{#each @post.image_urls as |url|}}
-        <img src={{url}} alt="" class="img-fluid">
-      {{/each}}
-    </div>
+    </h2>
+    <div class="card-text">{{this.renderMarkdown @post.body}}</div>
+    {{#each @post.image_urls as |url|}}
+      <img src={{url}} alt="" class="img-fluid">
+    {{/each}}
   </div>
 </div>

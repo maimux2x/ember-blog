@@ -15,7 +15,11 @@ export default class PostFormComponent extends Component {
       );
 
       upload.create((error, blob) => {
-        this.args.post.images.push(blob.signed_id);
+        if (error) {
+          console.log(error.messate);
+        } else {
+          this.args.post.images.push(blob.signed_id);
+        }
       });
     }
   }

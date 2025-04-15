@@ -3,4 +3,5 @@ class Post < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
+  validates :images, content_type: [ "image/png", "image/jpeg" ]
 end

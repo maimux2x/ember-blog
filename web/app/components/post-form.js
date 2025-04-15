@@ -16,7 +16,7 @@ export default class PostFormComponent extends Component {
 
       upload.create((error, blob) => {
         if (error) {
-          console.log(error.messate);
+          console.error(error.message);
         } else {
           this.args.post.images.push(blob.signed_id);
         }

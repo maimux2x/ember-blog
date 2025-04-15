@@ -3,7 +3,7 @@
     <label for="title" class="form-label">Title</label>
     <Input @value={{@post.title}} id="title" class="form-control {{if @post.errors.title "is-invalid"}}" />
     {{#each @post.errors.title as |error|}}
-      <div class="error invalid-feedback">
+      <div class="invalid-feedback">
         {{error}}
       </div>
     {{/each}}
@@ -12,15 +12,22 @@
     <label for="body" class="form-label">Body</label>
     <Textarea @value={{@post.body}} id="body" class="form-control {{if @post.errors.body "is-invalid"}}" />
     {{#each @post.errors.body as |error|}}
-      <div class="error invalid-feedback">
+      <div class="invalid-feedback">
         {{error}}
       </div>
     {{/each}}
   </div>
 
-  <button type="submit" class="btn btn-primary me-2">{{@submitLabel}}</button>
   <div class="mb-3">
-    <label for="file" class="form-label"></label>
-    <input type="file" id="file" name="file" class="form-control" multiple {{on "change" this.uploadImage}} />
+    <input type="file" id="file" name="file" class="{{if @post.errors.images "is-invalid"}}" multiple {{on "change" this.uploadImage}} hidden />
+    <label for="file" class="btn btn-outline-primary">
+      Choose image
+    </label>
+    {{#each @post.errors.images as |error|}}
+      <div class="invalid-feedback">
+        {{error}}
+      </div>
+    {{/each}}
   </div>
+  <button type="submit" class="btn btn-primary mb-3">{{@submitLabel}}</button>
 </form>

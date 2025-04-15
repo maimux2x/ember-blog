@@ -1,18 +1,7 @@
-json = {
+{
   id:         post.id,
   created_at: post.created_at,
   title:      post.title,
-  body:       post.body
+  body:       post.body,
+  image_urls: post.images.map { rails_blob_url(it) }
 }
-
-json[:images] = if post.images.attached?
-  post.images.map do |image|
-    {
-      image_url: rails_blob_url(image)
-    }
-  end
-else
-  nil
-end
-
-json

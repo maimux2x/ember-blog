@@ -9,11 +9,9 @@
     </h5>
     <div class="body card-text">
       {{@post.body}}
-      {{#if @post.images}}
-        {{#each @post.images as |image|}}
-          <img src={{image.image_url}} alt="">
-        {{/each}}
-      {{/if}}
+      {{#each @post.image_urls as |url|}}
+        <img src={{url}} alt="" class="img-fluid">
+      {{/each}}
     </div>
   </div>
 </div>

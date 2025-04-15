@@ -7,6 +7,11 @@
         {{@post.title}}
       {{/if}}
     </h5>
-    <div class="body card-text">{{@post.body}}</div>
+    <div class="body card-text">
+      {{@post.body}}
+      {{#each @post.image_urls as |url|}}
+        <img src={{url}} alt="" class="img-fluid">
+      {{/each}}
+    </div>
   </div>
 </div>

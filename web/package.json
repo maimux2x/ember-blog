@@ -35,6 +35,7 @@
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
     "@rails/activestorage": "^8.0.200",
+    "autosize": "^6.0.1",
     "bootstrap": "^5.3.3",
     "broccoli-asset-rev": "^3.0.0",
     "concurrently": "^8.2.2",
@@ -84,7 +85,5 @@
   },
   "ember": {
     "edition": "octane"
-  },
-  "dependencies": {
   }
 }

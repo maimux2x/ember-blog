@@ -20,7 +20,7 @@
       </div>
       <div class="mb-3">
         <label for="body" class="form-label">Body</label>
-        <Textarea @value={{@post.body}} id="body" class="form-control {{if @post.errors.body "is-invalid"}}" />
+        <Textarea {{this.setTextarea}} @value={{@post.body}} id="body" class="form-control {{if @post.errors.body "is-invalid"}}" />
         {{#each @post.errors.body as |error|}}
           <div class="invalid-feedback">
             {{error}}

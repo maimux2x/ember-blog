@@ -7,6 +7,10 @@ import sanitizeHtml from 'sanitize-html';
 export default class PostComponent extends Component {
   @action
   renderMarkdown(body) {
-    return htmlSafe(sanitizeHtml(marked.parse(body)));
+    return htmlSafe(
+      sanitizeHtml(marked.parse(body), {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+      }),
+    );
   }
 }

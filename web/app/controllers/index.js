@@ -32,8 +32,7 @@ export default class IndexController extends Controller {
 
   @action
   cancel() {
-    this.query = '';
-    this._query = '';
+    this.query = this._query = '';
     this.page = 1;
 
     runTask(this, () => {

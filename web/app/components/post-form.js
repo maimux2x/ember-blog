@@ -1,12 +1,15 @@
 import Component from '@glimmer/component';
 import { DirectUpload } from '@rails/activestorage/src/direct_upload';
 import { action } from '@ember/object';
+import { modifier } from 'ember-modifier';
 
 export default class PostFormComponent extends Component {
+  setTextarea = modifier((textarea) => {
+    this.textarea = textarea;
+  });
+
   @action
   uploadImage(e) {
-    this.args.post.images = [];
-
     for (const file of e.target.files) {
       const upload = new DirectUpload(
         file,
@@ -18,9 +21,20 @@ export default class PostFormComponent extends Component {
         if (error) {
           console.error(error.message);
         } else {
-          this.args.post.images.push(blob.signed_id);
+          const startPos = this.textarea.selectionStart;
+          const endPos = this.textarea.selectionEnd;
+          const before = this.textarea.value.substring(0, startPos);
+          const after = this.textarea.value.substring(endPos);
+          const text = `![${blob.filename}](http://localhost:3000/rails/active_storage/blobs/redirect/${blob.signed_id}/${blob.filename})`;
+
+          this.args.post.body = before + text + after;
+          this.textarea.selectionStart = this.textarea.selectionEnd =
+            startPos + text.length;
+          this.textarea.focus();
         }
       });
     }
+
+    e.target.value = null;
   }
 }

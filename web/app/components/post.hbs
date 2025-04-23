@@ -8,8 +8,5 @@
       {{/if}}
     </h2>
     <div class="card-text">{{this.renderMarkdown @post.body}}</div>
-    {{#each @post.image_urls as |url|}}
-      <img src={{url}} alt="" class="img-fluid">
-    {{/each}}
   </div>
 </div>

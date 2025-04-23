@@ -2,6 +2,8 @@ import Component from '@glimmer/component';
 import { DirectUpload } from '@rails/activestorage/src/direct_upload';
 import { action } from '@ember/object';
 import { modifier } from 'ember-modifier';
+import { runTask } from 'ember-lifeline';
+import autosize from 'autosize';
 
 export default class PostFormComponent extends Component {
   setTextarea = modifier((textarea) => {
@@ -28,9 +30,14 @@ export default class PostFormComponent extends Component {
           const text = `![${blob.filename}](http://localhost:3000/rails/active_storage/blobs/redirect/${blob.signed_id}/${blob.filename})`;
 
           this.args.post.body = before + text + after;
-          this.textarea.selectionStart = this.textarea.selectionEnd =
-            startPos + text.length;
-          this.textarea.focus();
+
+          runTask(this, () => {
+            autosize.update(this.textarea);
+
+            this.textarea.selectionStart = this.textarea.selectionEnd =
+              startPos + text.length;
+            this.textarea.focus();
+          });
         }
       });
     }

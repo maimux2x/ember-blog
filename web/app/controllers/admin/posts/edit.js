@@ -24,7 +24,6 @@ export default class AdminPostsEditController extends Controller {
           post: {
             title: this.model.title,
             body: this.model.body,
-            images: this.model.images,
           },
         }),
       },

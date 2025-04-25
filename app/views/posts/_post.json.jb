@@ -2,6 +2,5 @@
   id:         post.id,
   created_at: post.created_at,
   title:      post.title,
-  body:       post.body,
-  image_urls: post.images.map { rails_blob_url(it) }
+  body:       post.body
 }

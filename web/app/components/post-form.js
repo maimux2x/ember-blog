@@ -10,6 +10,15 @@ export default class PostFormComponent extends Component {
     this.textarea = textarea;
   });
 
+  get tagNames() {
+    return this.args.post.tagNames.join(', ');
+  }
+
+  @action
+  setTagNames(e) {
+    this.args.post.tagNames = e.target.value.split(',').map((s) => s.trim());
+  }
+
   @action
   uploadImage(e) {
     for (const file of e.target.files) {

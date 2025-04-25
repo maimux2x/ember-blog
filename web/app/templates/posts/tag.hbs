@@ -1,0 +1,8 @@
+<h2>Tag : {{@model.tagName}}</h2>
+<div class="posts">
+  {{#each @model.posts as |post|}}
+    <Post @post={{post}} @link={{true}} />
+  {{/each}}
+</div>
+
+<Pagination @route="index" @current={{this.page}} @last={{@model.total_pages}} />

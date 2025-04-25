@@ -6,8 +6,10 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page])
+    @posts = Post.order(created_at: :desc).page(params[:page]).includes(taggings: :tag)
     @posts = @posts.where("title LIKE :query OR body LIKE :query", query: "%#{ActiveRecord::Base.sanitize_sql_like(params[:query])}%") if params[:query]
+
+    @posts = @posts.joins(:tags).where(tags: { name: params[:tag_name] }) if params[:tag_name]
   end
 
   def show
@@ -33,6 +35,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.expect(post: [ :title, :body ])
+    params.expect(post: [ :title, :body, tag_names: [] ])
   end
 end

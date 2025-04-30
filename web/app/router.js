@@ -9,12 +9,13 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('posts', function () {
     this.route('show', { path: '/:post_id' });
+    this.route('tag', { path: '/tags/:tag_name' });
   });
 
   this.route('admin', function () {
     this.route('posts', function () {
       this.route('new');
-      this.route('edit', { path: 'edit/:post_id' });
+      this.route('edit', { path: '/edit/:post_id' });
     });
   });
 

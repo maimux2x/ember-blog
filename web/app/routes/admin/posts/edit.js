@@ -7,6 +7,6 @@ export default class AdminPostsEditRoute extends Route {
       (res) => res.json(),
     );
 
-    return Object.assign(new Post(), post);
+    return Post.fromJSON(post);
   }
 }

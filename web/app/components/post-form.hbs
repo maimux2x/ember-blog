@@ -27,6 +27,15 @@
           </div>
         {{/each}}
       </div>
+      <div class="mb-3">
+        <label for="tags" class="form-label">Tag</label>
+        <input value={{this.tagNames}} id="tag-names" class="form-control {{if @post.errors.tags "is-invalid"}}" {{on "input" this.setTagNames}} />
+        {{#each @post.errors.tags as |error|}}
+          <div class="invalid-feedback">
+            {{error}}
+          </div>
+        {{/each}}
+      </div>
 
       <div class="mb-3">
         <input type="file" id="file" name="file" class="{{if @post.errors.images "is-invalid"}}" multiple {{on "change" this.uploadImage}} hidden />

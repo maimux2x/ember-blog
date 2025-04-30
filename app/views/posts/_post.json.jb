@@ -2,5 +2,6 @@
   id:         post.id,
   created_at: post.created_at,
   title:      post.title,
-  body:       post.body
+  body:       post.body,
+  tag_names:  post.tag_names
 }

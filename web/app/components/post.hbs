@@ -8,5 +8,10 @@
       {{/if}}
     </h2>
     <div class="card-text">{{this.renderMarkdown @post.body}}</div>
+    <div class="card-tags">
+      {{#each @post.tagNames as |tag|}}
+        <LinkTo @route="posts.tag" @model={{tag}} class="badge bg-secondary me-1">{{tag}}</LinkTo>
+      {{/each}}
+    </div>
   </div>
 </div>

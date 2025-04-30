@@ -1,5 +1,7 @@
 class Post < ApplicationRecord
   has_many_attached :images
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
 
   validates :title, presence: true
   validates :body, presence: true
@@ -7,6 +9,17 @@ class Post < ApplicationRecord
 
   before_save :set_images
   after_commit :purge_unattached_blobs
+
+  def tag_names
+    taggings.sort_by(&:position).map { it.tag.name }
+  end
+
+  def tag_names=(names)
+    self.taggings = names.map.with_index { |name, i|
+      tag = Tag.find_or_create_by!(name:)
+      Tagging.new(tag:, position: i)
+    }
+  end
 
   private
 

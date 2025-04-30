@@ -1,4 +1,5 @@
 import Route from '@ember/routing/route';
+import Post from '../models/post';
 
 export default class IndexRoute extends Route {
   queryParams = {
@@ -12,6 +13,9 @@ export default class IndexRoute extends Route {
     url.searchParams.set('page', args.page);
     url.searchParams.set('query', args.query);
 
-    return await fetch(url).then((res) => res.json());
+    const payload = await fetch(url).then((res) => res.json());
+    payload.posts = payload.posts.map((post) => Post.fromJSON(post));
+
+    return payload;
   }
 }

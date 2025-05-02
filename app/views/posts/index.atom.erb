@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>ember blog</title>
+  <link href="http://localhost:4200/" />
+  <link rel="self" href="<%= posts_url(format: :atom) %>" />
+  <link rel="hub" href="https://pubsubhubbub.appspot.com" />
+  <id>http://localhost:4200/</id>
+  <updated><%= @posts.first.created_at.iso8601 %></updated>
+
+  <% @posts.each do |post| %>
+    <entry>
+      <title><%= post.title %></title>
+      <link href="http://localhost:4200/posts/<%= post.id %>" />
+      <id>http://localhost:4200/posts/<%= post.id %></id>
+      <updated><%= post.updated_at.iso8601 %></updated>
+
+      <content type="html">
+        <![CDATA[
+          <%== Commonmarker.to_html(post.body) %>
+
+          <div>
+            <% post.tag_names.each do |tag| %>
+              <a href="http://localhost:4200/posts/tags/<%= tag %>"><%= tag %></a>
+            <% end %>
+          </div>
+        ]]>
+      </content>
+      <author>
+        <name>maimu</name>
+      </author>
+    </entry>
+  <% end %>
+</feed>
+

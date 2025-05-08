@@ -29,7 +29,7 @@ class Post < ApplicationRecord
     Commonmarker.parse(body).walk do |node|
       case node.type
       when :link, :image
-        if %r{\Ahttp://localhost:3000/rails/active_storage/blobs/(?:redirect/|proxy/)?(?<signed_id>\S+)/} =~ node.url
+        if %r{/rails/active_storage/blobs/(?:redirect/|proxy/)?(?<signed_id>\S+)/} =~ node.url
           signed_ids << signed_id
         end
       end

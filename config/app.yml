@@ -1,0 +1,7 @@
+development:
+  app_url: http://localhost:3000
+  web_url: http://localhost:4200
+
+production:
+  app_url: https://blog.maimux2x.com
+  web_url: https://blog.maimux2x.com

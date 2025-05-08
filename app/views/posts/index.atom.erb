@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<% root_url = Rails.application.config_for(:app).web_url! %>
 
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>ember blog</title>
-  <link href="http://localhost:4200/" />
+  <link href="<%= root_url %>" />
   <link rel="self" href="<%= posts_url(format: :atom) %>" />
   <link rel="hub" href="https://pubsubhubbub.appspot.com" />
-  <id>http://localhost:4200/</id>
+  <id><%= root_url %></id>
   <updated><%= @posts.first.created_at.iso8601 %></updated>
 
   <% @posts.each do |post| %>
     <entry>
       <title><%= post.title %></title>
-      <link href="http://localhost:4200/posts/<%= post.id %>" />
-      <id>http://localhost:4200/posts/<%= post.id %></id>
+      <link href="<%= root_url %>/posts/<%= post.id %>" />
+      <id><%= root_url %>/posts/<%= post.id %></id>
       <updated><%= post.updated_at.iso8601 %></updated>
 
       <content type="html">
@@ -21,7 +22,7 @@
 
           <div>
             <% post.tag_names.each do |tag| %>
-              <a href="http://localhost:4200/posts/tags/<%= tag %>"><%= tag %></a>
+              <a href="<%= root_url %>/posts/tags/<%= tag %>"><%= tag %></a>
             <% end %>
           </div>
         ]]>

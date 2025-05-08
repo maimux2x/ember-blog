@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import ENV from 'web/config/environment';
 
 export default class AdminPostsEditController extends Controller {
   @service router;
@@ -11,24 +12,21 @@ export default class AdminPostsEditController extends Controller {
   async updatePost(event) {
     event.preventDefault();
 
-    const response = await fetch(
-      `http://localhost:3000/posts/${this.model.id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.session.token}`,
-        },
-
-        body: JSON.stringify({
-          post: {
-            title: this.model.title,
-            body: this.model.body,
-            tag_names: this.model.tagNames,
-          },
-        }),
+    const response = await fetch(`${ENV.apiURL}/posts/${this.model.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.session.token}`,
       },
-    );
+
+      body: JSON.stringify({
+        post: {
+          title: this.model.title,
+          body: this.model.body,
+          tag_names: this.model.tagNames,
+        },
+      }),
+    });
 
     if (!response.ok) {
       const json = await response.json();
@@ -46,15 +44,12 @@ export default class AdminPostsEditController extends Controller {
       return;
     }
 
-    const response = await fetch(
-      `http://localhost:3000/posts/${this.model.id}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${this.session.token}`,
-        },
+    const response = await fetch(`${ENV.apiURL}/posts/${this.model.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${this.session.token}`,
       },
-    );
+    });
 
     if (!response.ok) {
       throw new Error('Faild to delete post');

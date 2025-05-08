@@ -1,9 +1,10 @@
 import Route from '@ember/routing/route';
 import Post from '../../models/post';
+import ENV from 'web/config/environment';
 
 export default class PostsTagRoute extends Route {
   async model({ tag_name }) {
-    const url = new URL('http://localhost:3000/posts');
+    const url = new URL(`${ENV.apiURL}/posts`);
     url.searchParams.set('tag_name', tag_name);
 
     const payload = await fetch(url, {

@@ -1,8 +1,18 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+
+const yaml = require('js-yaml');
+
+const railsEnv = process.env.RAILS_ENV || 'development';
+const app = yaml.load(
+  fs.readFileSync(path.join(__dirname, '../../config/app.yml')),
+)[railsEnv];
+
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'web',
+    modulePrefix: 'blog',
     environment,
     rootURL: '/',
     locationType: 'history',
@@ -18,6 +28,8 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+
+    apiURL: new URL('/', app.app_url).href,
   };
 
   if (environment === 'development') {

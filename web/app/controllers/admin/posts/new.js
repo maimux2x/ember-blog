@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import ENV from 'web/config/environment';
 
 export default class AdminPostsNewController extends Controller {
   @service router;
@@ -11,7 +12,7 @@ export default class AdminPostsNewController extends Controller {
   async createPost(event) {
     event.preventDefault();
 
-    const response = await fetch('http://localhost:3000/posts', {
+    const response = await fetch(`${ENV.apiURL}/posts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

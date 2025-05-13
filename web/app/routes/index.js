@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import Post from '../models/post';
+import ENV from 'web/config/environment';
 
 export default class IndexRoute extends Route {
   queryParams = {
@@ -9,7 +10,7 @@ export default class IndexRoute extends Route {
   };
 
   async model(args) {
-    const url = new URL('http://localhost:3000/posts');
+    const url = new URL(`${ENV.apiURL}/posts`);
     url.searchParams.set('page', args.page);
     url.searchParams.set('query', args.query);
 

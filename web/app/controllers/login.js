@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
+import ENV from 'web/config/environment';
 
 export default class LoginController extends Controller {
   @service router;
@@ -10,7 +11,7 @@ export default class LoginController extends Controller {
   async createToken(event) {
     event.preventDefault();
 
-    const response = await fetch('http://localhost:3000/token', {
+    const response = await fetch(`${ENV.apiURL}/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

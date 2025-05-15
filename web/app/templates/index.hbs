@@ -11,7 +11,9 @@
   {{/each}}
 </div>
 
-<Pagination @route="index" @current={{this.page}} @last={{@model.total_pages}} />
+{{#if (gt @model.total_pages 1)}}
+  <Pagination @route="index" @current={{this.page}} @last={{@model.total_pages}} />
+{{/if}}
 
 {{#if this.session.isLogedIn}}
   <LinkTo @route="admin.posts">admin</LinkTo>

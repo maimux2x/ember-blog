@@ -18,7 +18,9 @@
   </tbody>
 </table>
 
-<Pagination @route="admin.posts" @current={{this.page}} @last={{@model.total_pages}} />
+{{#if (@model.total_pages 1)}}
+  <Pagination @route="admin.posts" @current={{this.page}} @last={{@model.total_pages}} />
+{{/if}}
 
 <div class="mt-3">
   <LinkTo @route="admin.posts.new">New</LinkTo>

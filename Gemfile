@@ -11,6 +11,7 @@ gem "kaminari"
 gem "jb"
 gem "jwt"
 gem "kamal", require: false
+gem "litestream"
 gem "puma", ">= 5.0"
 gem "rack-cors"
 gem "solid_cable"

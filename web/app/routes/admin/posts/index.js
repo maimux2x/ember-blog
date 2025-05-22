@@ -12,10 +12,6 @@ export default class IndexRoute extends Route {
     const url = new URL(`${ENV.apiURL}/posts`);
     url.searchParams.set('page', args.page);
 
-    return await fetch(url, {
-      headers: {
-        Accept: 'application/json',
-      },
-    }).then((res) => res.json());
+    return await fetch(url).then((res) => res.json());
   }
 }

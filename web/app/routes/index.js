@@ -14,11 +14,7 @@ export default class IndexRoute extends Route {
     url.searchParams.set('page', args.page);
     url.searchParams.set('query', args.query);
 
-    const payload = await fetch(url, {
-      headers: {
-        Accept: 'application/json',
-      },
-    }).then((res) => res.json());
+    const payload = await fetch(url).then((res) => res.json());
     payload.posts = payload.posts.map((post) => Post.fromJSON(post));
 
     return payload;

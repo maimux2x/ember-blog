@@ -1,3 +1,5 @@
+require "net/http"
+
 class PostsController < ApplicationController
   before_action :verify_token, only: [ :create, :update, :destroy ]
 
@@ -18,12 +20,16 @@ class PostsController < ApplicationController
 
   def create
     Post.create!(post_params)
+    publish
+
     head :created
   end
 
   def update
     post = Post.find(params[:id])
     post.update!(post_params)
+    publish
+
     head :ok
   end
 
@@ -36,5 +42,15 @@ class PostsController < ApplicationController
 
   def post_params
     params.expect(post: [ :title, :body, tag_names: [] ])
+  end
+
+  def publish
+    return if Rails.env.development?
+
+    uri = URI.parse("https://pubsubhubbub.appspot.com/")
+    Net::HTTP.post_form(uri, {
+      "hub.mode" => "publish",
+      "hub.url"  => feed_url
+    })
   end
 end

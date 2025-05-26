@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   mount Litestream::Engine, at: "/litestream"
 
+  get "posts.atom", to: redirect("feed.atom")
+
   resource :token, only: :create
   resources :posts
   resource :feed, only: :show
-
-  get "posts.atom", to: redirect("feed.atom")
 end

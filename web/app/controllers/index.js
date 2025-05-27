@@ -20,6 +20,11 @@ export default class IndexController extends Controller {
   @tracked _query = '';
 
   @action
+  setQuery(e) {
+    this._query = e.target.value;
+  }
+
+  @action
   search(e) {
     e.preventDefault();
     this.query = this._query;

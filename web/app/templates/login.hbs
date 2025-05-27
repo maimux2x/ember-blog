@@ -1,11 +1,23 @@
 <form {{on "submit" this.createToken}}>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
-    <Input @value={{@model.email}} id="email" class="form-control {{if @model.error "is-invalid"}}" @type="email" />
+    <input
+      value={{@model.email}}
+      id="email"
+      class="form-control {{if @model.error 'is-invalid'}}"
+      {{on "input" this.setEmail}}
+      type="email"
+    />
   </div>
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
-    <Input @value={{@model.password}} id="password" class="form-control {{if @model.error "is-invalid"}}" @type="password" />
+    <input
+      value={{@model.password}}
+      id="password"
+      class="form-control {{if @model.error 'is-invalid'}}"
+      {{on "input" this.setPassword}}
+      type="password"
+    />
     <div class="error invalid-feedback">
       {{@model.error}}
     </div>

@@ -19,7 +19,10 @@ export default class PostFormComponent extends Component {
 
   @action
   setTagNames(e) {
-    this.args.post.tagNames = e.target.value.split(',').map((s) => s.trim());
+    this.args.post.tagNames = e.target.value
+      .split(',')
+      .map((s) => s.trim())
+      .filter((s) => s);
   }
 
   @action
@@ -137,7 +140,7 @@ export default class PostFormComponent extends Component {
               value={{this.tagNames}}
               id="tag-names"
               class="form-control {{if @post.errors.tags 'is-invalid'}}"
-              {{on "input" this.setTagNames}}
+              {{on "change" this.setTagNames}}
             />
             {{#each @post.errors.tags as |error|}}
               <div class="invalid-feedback">

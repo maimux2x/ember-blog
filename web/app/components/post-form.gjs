@@ -1,14 +1,12 @@
-import Component from "@glimmer/component";
-import { DirectUpload } from "@rails/activestorage/src/direct_upload";
-import { action } from "@ember/object";
-import { modifier } from "ember-modifier";
-import { runTask } from "ember-lifeline";
-import { on } from "@ember/modifier";
-import { Textarea } from "@ember/component";
-import { Input } from "@ember/component";
-import autosize from "web/modifiers/autosize";
-import ENV from "web/config/environment";
-import Post from "./post";
+import Component from '@glimmer/component';
+import { DirectUpload } from '@rails/activestorage/src/direct_upload';
+import { action } from '@ember/object';
+import { modifier } from 'ember-modifier';
+import { runTask } from 'ember-lifeline';
+import { on } from '@ember/modifier';
+import autosize from 'web/modifiers/autosize';
+import ENV from 'web/config/environment';
+import Post from './post';
 
 export default class PostFormComponent extends Component {
   setTextarea = modifier((textarea) => {
@@ -16,12 +14,22 @@ export default class PostFormComponent extends Component {
   });
 
   get tagNames() {
-    return this.args.post.tagNames.join(", ");
+    return this.args.post.tagNames.join(', ');
   }
 
   @action
   setTagNames(e) {
-    this.args.post.tagNames = e.target.value.split(",").map((s) => s.trim());
+    this.args.post.tagNames = e.target.value.split(',').map((s) => s.trim());
+  }
+
+  @action
+  setTitle(e) {
+    this.args.post.title = e.target.value;
+  }
+
+  @action
+  setBody(e) {
+    this.args.post.body = e.target.value;
   }
 
   @action
@@ -62,18 +70,46 @@ export default class PostFormComponent extends Component {
   <template>
     <ul class="nav nav-tabs mb-3" id="postFormTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home" data-bs-toggle="tab" data-bs-target="#home-pane" type="button" role="tab" aria-controls="home-pane" aria-selected="true">Form</button>
+        <button
+          class="nav-link active"
+          id="home"
+          data-bs-toggle="tab"
+          data-bs-target="#home-pane"
+          type="button"
+          role="tab"
+          aria-controls="home-pane"
+          aria-selected="true"
+        >Form</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="preview" data-bs-toggle="tab" data-bs-target="#preview-pane" type="button" role="tab" aria-controls="preview-pane" aria-selected="false">Preview</button>
+        <button
+          class="nav-link"
+          id="preview"
+          data-bs-toggle="tab"
+          data-bs-target="#preview-pane"
+          type="button"
+          role="tab"
+          aria-controls="preview-pane"
+          aria-selected="false"
+        >Preview</button>
       </li>
     </ul>
     <div class="tab-content" id="postFormTabContent">
-      <div class="tab-pane fade show active" id="home-pane" role="tabpanel" aria-labelledby="form-tab">
+      <div
+        class="tab-pane fade show active"
+        id="home-pane"
+        role="tabpanel"
+        aria-labelledby="form-tab"
+      >
         <form {{on "submit" @onSubmit}}>
           <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <Input @value={{@post.title}} id="title" class="form-control {{if @post.errors.title "is-invalid"}}" />
+            <input
+              value={{@post.title}}
+              id="title"
+              class="form-control {{if @post.errors.title 'is-invalid'}}"
+              {{on "input" this.setTitle}}
+            />
             {{#each @post.errors.title as |error|}}
               <div class="invalid-feedback">
                 {{error}}
@@ -82,7 +118,13 @@ export default class PostFormComponent extends Component {
           </div>
           <div class="mb-3">
             <label for="body" class="form-label">Body</label>
-            <Textarea {{autosize}} {{this.setTextarea}} @value={{@post.body}} id="body" class="form-control {{if @post.errors.body "is-invalid"}}" />
+            <textarea
+              {{autosize}}
+              {{this.setTextarea}}
+              id="body"
+              class="form-control {{if @post.errors.body 'is-invalid'}}"
+              {{on "input" this.setBody}}
+            >{{@post.body}}</textarea>
             {{#each @post.errors.body as |error|}}
               <div class="invalid-feedback">
                 {{error}}
@@ -91,7 +133,12 @@ export default class PostFormComponent extends Component {
           </div>
           <div class="mb-3">
             <label for="tags" class="form-label">Tag</label>
-            <input value={{this.tagNames}} id="tag-names" class="form-control {{if @post.errors.tags "is-invalid"}}" {{on "input" this.setTagNames}} />
+            <input
+              value={{this.tagNames}}
+              id="tag-names"
+              class="form-control {{if @post.errors.tags 'is-invalid'}}"
+              {{on "input" this.setTagNames}}
+            />
             {{#each @post.errors.tags as |error|}}
               <div class="invalid-feedback">
                 {{error}}
@@ -100,7 +147,15 @@ export default class PostFormComponent extends Component {
           </div>
 
           <div class="mb-3">
-            <input type="file" id="file" name="file" class="{{if @post.errors.images "is-invalid"}}" multiple {{on "change" this.uploadImage}} hidden />
+            <input
+              type="file"
+              id="file"
+              name="file"
+              class="{{if @post.errors.images 'is-invalid'}}"
+              multiple
+              {{on "change" this.uploadImage}}
+              hidden
+            />
             <label for="file" class="btn btn-outline-primary">
               Choose image
             </label>
@@ -110,10 +165,18 @@ export default class PostFormComponent extends Component {
               </div>
             {{/each}}
           </div>
-          <button type="submit" class="btn btn-primary mb-3">{{@submitLabel}}</button>
+          <button
+            type="submit"
+            class="btn btn-primary mb-3"
+          >{{@submitLabel}}</button>
         </form>
       </div>
-      <div class="tab-pane fade" id="preview-pane" role="tabpanel" aria-labelledby="preview-tab">
+      <div
+        class="tab-pane fade"
+        id="preview-pane"
+        role="tabpanel"
+        aria-labelledby="preview-tab"
+      >
         <Post @post={{@post}} />
       </div>
     </div>

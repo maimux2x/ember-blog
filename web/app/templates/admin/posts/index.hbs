@@ -1,5 +1,9 @@
 <div class="d-flex justify-content-end">
-  <button type="button" class="btn btn-light" {{on "click" this.logout}}>Logout</button>
+  <button
+    type="button"
+    class="btn btn-light"
+    {{on "click" this.logout}}
+  >Logout</button>
 </div>
 <table class="table">
   <thead>
@@ -11,7 +15,10 @@
   <tbody>
     {{#each @model.posts as |post|}}
       <tr>
-        <td><LinkTo @route="admin.posts.edit" @model={{post.id}}>{{post.title}}</LinkTo></td>
+        <td><LinkTo
+            @route="admin.posts.edit"
+            @model={{post.id}}
+          >{{post.title}}</LinkTo></td>
         <td>{{format-datetime post.created_at}}</td>
       </tr>
     {{/each}}
@@ -19,7 +26,11 @@
 </table>
 
 {{#if (@model.total_pages 1)}}
-  <Pagination @route="admin.posts" @current={{this.page}} @last={{@model.total_pages}} />
+  <Pagination
+    @route="admin.posts"
+    @current={{this.page}}
+    @last={{@model.total_pages}}
+  />
 {{/if}}
 
 <div class="mt-3">

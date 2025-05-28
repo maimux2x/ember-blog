@@ -1,7 +1,7 @@
-import Component from "@glimmer/component";
-import { LinkTo } from "@ember/routing";
-import { hash } from "@ember/helper";
-import { eq } from "ember-truth-helpers";
+import Component from '@glimmer/component';
+import { LinkTo } from '@ember/routing';
+import { hash } from '@ember/helper';
+import { eq } from 'ember-truth-helpers';
 
 export default class PaginationComponent extends Component {
   get pages() {
@@ -23,7 +23,12 @@ export default class PaginationComponent extends Component {
       <ul class="pagination">
         <li class="page-item {{unless this.prev 'disabled'}}">
           {{#if this.prev}}
-            <LinkTo @route={{@route}} @query={{hash page=1}} class="page-link" aria-label="Start">
+            <LinkTo
+              @route={{@route}}
+              @query={{hash page=1}}
+              class="page-link"
+              aria-label="Start"
+            >
               <span aria-hidden="true">&lt;&lt;</span>
             </LinkTo>
           {{else}}
@@ -34,7 +39,12 @@ export default class PaginationComponent extends Component {
         </li>
         <li class="page-item {{unless this.prev 'disabled'}}">
           {{#if this.prev}}
-            <LinkTo @route={{@route}} @query={{hash page=this.prev}} class="page-link" aria-label="Start">
+            <LinkTo
+              @route={{@route}}
+              @query={{hash page=this.prev}}
+              class="page-link"
+              aria-label="Start"
+            >
               <span aria-hidden="true">&lt;</span>
             </LinkTo>
           {{else}}
@@ -46,7 +56,11 @@ export default class PaginationComponent extends Component {
 
         {{#each this.pages as |page|}}
           <li class="page-item {{if (eq page @current) 'active'}}">
-            <LinkTo @route= {{@route}} @query={{hash page=page}} class="page-link">
+            <LinkTo
+              @route={{@route}}
+              @query={{hash page=page}}
+              class="page-link"
+            >
               {{page}}
             </LinkTo>
           </li>
@@ -54,7 +68,12 @@ export default class PaginationComponent extends Component {
 
         <li class="page-item {{unless this.next 'disabled'}}">
           {{#if this.next}}
-            <LinkTo @route={{@route}} @query={{hash page=this.next}} class="page-link" aria-label="Next">
+            <LinkTo
+              @route={{@route}}
+              @query={{hash page=this.next}}
+              class="page-link"
+              aria-label="Next"
+            >
               <span aria-hidden="true">&gt;</span>
             </LinkTo>
           {{else}}
@@ -65,7 +84,12 @@ export default class PaginationComponent extends Component {
         </li>
         <li class="page-item {{unless this.next 'disabled'}}">
           {{#if this.next}}
-            <LinkTo @route={{@route}} @query={{hash page=@last}} class="page-link" aria-label="Next">
+            <LinkTo
+              @route={{@route}}
+              @query={{hash page=@last}}
+              class="page-link"
+              aria-label="Next"
+            >
               <span aria-hidden="true">&gt;&gt;</span>
             </LinkTo>
           {{else}}

@@ -1,12 +1,12 @@
-import { marked } from "marked";
-import { htmlSafe } from "@ember/template";
-import { LinkTo } from "@ember/routing";
-import sanitizeHtml from "sanitize-html";
+import { marked } from 'marked';
+import { htmlSafe } from '@ember/template';
+import { LinkTo } from '@ember/routing';
+import sanitizeHtml from 'sanitize-html';
 
 function renderMarkdown(body) {
   return htmlSafe(
     sanitizeHtml(marked.parse(body), {
-      allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+      allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
     }),
   );
 }
@@ -16,7 +16,10 @@ function renderMarkdown(body) {
     <div class="card-body">
       <h2 class="card-title">
         {{#if @link}}
-          <LinkTo @route="posts.show" @model={{@post.id}}>{{@post.title}}</LinkTo>
+          <LinkTo
+            @route="posts.show"
+            @model={{@post.id}}
+          >{{@post.title}}</LinkTo>
         {{else}}
           {{@post.title}}
         {{/if}}
@@ -24,7 +27,11 @@ function renderMarkdown(body) {
       <div class="card-text">{{renderMarkdown @post.body}}</div>
       <div class="card-tags">
         {{#each @post.tagNames as |tag|}}
-          <LinkTo @route="posts.tag" @model={{tag}} class="badge bg-secondary me-1">{{tag}}</LinkTo>
+          <LinkTo
+            @route="posts.tag"
+            @model={{tag}}
+            class="badge bg-secondary me-1"
+          >{{tag}}</LinkTo>
         {{/each}}
       </div>
     </div>

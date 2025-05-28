@@ -8,6 +8,16 @@ export default class LoginController extends Controller {
   @service session;
 
   @action
+  setEmail(e) {
+    this.model.email = e.target.value;
+  }
+
+  @action
+  setPassword(e) {
+    this.model.password = e.target.value;
+  }
+
+  @action
   async createToken(event) {
     event.preventDefault();
 

@@ -4,10 +4,6 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
-    'ember-bootstrap': {
-      bootstrapVersion: 5,
-      importBootstrapCSS: true,
-    },
     emberData: {
       deprecations: {
         // New projects can safely leave this deprecation disabled.
@@ -19,8 +15,6 @@ module.exports = function (defaults) {
     },
     // Add options here
   });
-
-  app.import('node_modules/bootstrap/dist/css/bootstrap.css');
 
   return app.toTree();
 };

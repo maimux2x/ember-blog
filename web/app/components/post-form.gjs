@@ -4,7 +4,8 @@ import { action } from '@ember/object';
 import { modifier } from 'ember-modifier';
 import { runTask } from 'ember-lifeline';
 import { on } from '@ember/modifier';
-import autosize from 'web/modifiers/autosize';
+import autosizeModifier from 'web/modifiers/autosize';
+import autosize from 'autosize';
 import ENV from 'web/config/environment';
 import Post from './post';
 
@@ -122,7 +123,7 @@ export default class PostFormComponent extends Component {
           <div class="mb-3">
             <label for="body" class="form-label">Body</label>
             <textarea
-              {{autosize}}
+              {{autosizeModifier}}
               {{this.setTextarea}}
               id="body"
               class="form-control {{if @post.errors.body 'is-invalid'}}"

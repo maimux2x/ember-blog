@@ -29,7 +29,7 @@ module.exports = function (environment) {
       // when it is created
     },
 
-    apiURL: new URL('/', app.app_url).href,
+    apiURL: app.app_url,
   };
 
   if (environment === 'development') {

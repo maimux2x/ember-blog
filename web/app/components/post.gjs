@@ -5,7 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 
 function renderMarkdown(body) {
   return htmlSafe(
-    sanitizeHtml(marked.parse(body), {
+    sanitizeHtml(marked.parse(body, { breaks: true }), {
       allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
     }),
   );

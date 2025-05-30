@@ -1,10 +1,42 @@
 import Service from '@ember/service';
-import { getOwner } from '@ember/owner';
+import { tracked } from '@glimmer/tracking';
+import { scheduleTask } from 'ember-lifeline';
+import { modifier } from 'ember-modifier';
+import { Toast } from 'bootstrap';
 
 export default class ToastService extends Service {
-  show(body, bgColor) {
-    const controller = getOwner(this).lookup('controller:application');
+  @tracked data = [];
+  toasts = new Map();
 
-    controller.showToast({ body, bgColor });
+  setToast = modifier((el) => {
+    const toast = new Toast(el);
+    const elementId = el.id;
+
+    this.toasts.set(elementId, toast);
+
+    const handler = () => {
+      this.toasts.delete(elementId);
+      this.data = this.data.filter(({ id }) => id !== elementId);
+    };
+
+    el.addEventListener('hidden.bs.toast', handler);
+
+    return () => {
+      el.removeEventListener('hidden.bs.toast', handler);
+    };
+  });
+
+  show(body, bgColor) {
+    const id = crypto.randomUUID();
+
+    this.data = [...this.data, { id, body, bgColor }];
+
+    scheduleTask(this, 'render', () => {
+      const toast = this.toasts.get(id);
+
+      if (!toast) return;
+
+      toast.show();
+    });
   }
 }

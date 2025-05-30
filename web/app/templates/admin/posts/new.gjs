@@ -1,9 +1,11 @@
-import Controller from '@ember/controller';
+import Component from '@glimmer/component';
+import PostForm from 'web/components/post-form';
+import { LinkTo } from '@ember/routing';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import ENV from 'web/config/environment';
 
-export default class AdminPostsNewController extends Controller {
+export default class extends Component {
   @service router;
   @service toast;
   @service session;
@@ -11,6 +13,8 @@ export default class AdminPostsNewController extends Controller {
   @action
   async createPost(event) {
     event.preventDefault();
+
+    const { model } = this.args;
 
     const response = await fetch(`${ENV.apiURL}/posts`, {
       method: 'POST',
@@ -21,20 +25,34 @@ export default class AdminPostsNewController extends Controller {
 
       body: JSON.stringify({
         post: {
-          title: this.model.title,
-          body: this.model.body,
-          tag_names: this.model.tagNames,
+          title: model.title,
+          body: model.body,
+          tag_names: model.tagNames,
         },
       }),
     });
 
     if (!response.ok) {
       const json = await response.json();
-      this.model.errors = json.errors;
+      model.errors = json.errors;
     } else {
       this.router.transitionTo('admin.posts');
 
       this.toast.show('Post created successfully', 'success');
     }
   }
+
+  <template>
+    <h2>New Post</h2>
+
+    <PostForm
+      @onSubmit={{this.createPost}}
+      @post={{@model}}
+      @submitLabel="Create"
+    />
+
+    <div class="mt-3">
+      <LinkTo @route="admin.posts">Back</LinkTo>
+    </div>
+  </template>
 }

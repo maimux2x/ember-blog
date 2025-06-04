@@ -1,9 +1,12 @@
-import Controller from '@ember/controller';
+import Component from '@glimmer/component';
+import PostForm from 'web/components/post-form';
+import { LinkTo } from '@ember/routing';
 import { action } from '@ember/object';
+import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 import ENV from 'web/config/environment';
 
-export default class AdminPostsEditController extends Controller {
+export default class extends Component {
   @service router;
   @service toast;
   @service session;
@@ -12,7 +15,9 @@ export default class AdminPostsEditController extends Controller {
   async updatePost(event) {
     event.preventDefault();
 
-    const response = await fetch(`${ENV.apiURL}/posts/${this.model.id}`, {
+    const { model } = this.args;
+
+    const response = await fetch(`${ENV.apiURL}/posts/${model.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -21,16 +26,16 @@ export default class AdminPostsEditController extends Controller {
 
       body: JSON.stringify({
         post: {
-          title: this.model.title,
-          body: this.model.body,
-          tag_names: this.model.tagNames,
+          title: model.title,
+          body: model.body,
+          tag_names: model.tagNames,
         },
       }),
     });
 
     if (!response.ok) {
       const json = await response.json();
-      this.model.errors = json.errors;
+      model.errors = json.errors;
     } else {
       this.router.transitionTo('admin.posts');
 
@@ -44,7 +49,7 @@ export default class AdminPostsEditController extends Controller {
       return;
     }
 
-    const response = await fetch(`${ENV.apiURL}/posts/${this.model.id}`, {
+    const response = await fetch(`${ENV.apiURL}/posts/${this.args.model.id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${this.session.token}`,
@@ -59,4 +64,28 @@ export default class AdminPostsEditController extends Controller {
       this.toast.show('Post deleted successfully', 'success');
     }
   }
+
+  <template>
+    <h2>Edit Post</h2>
+
+    <PostForm
+      @onSubmit={{this.updatePost}}
+      @post={{@model}}
+      @submitLabel="Update"
+    />
+
+    <hr />
+
+    <div class="mt-3">
+      <button
+        type="button"
+        class="btn btn-danger"
+        {{on "click" this.deletePost}}
+      >Delete</button>
+    </div>
+
+    <div class="mt-3">
+      <LinkTo @route="admin.posts">Back</LinkTo>
+    </div>
+  </template>
 }

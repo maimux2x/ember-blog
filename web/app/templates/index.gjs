@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import Pagination from 'web/components/pagination';
 import Post from 'web/components/post';
-import { LinkTo } from '@ember/routing';
 import { action } from '@ember/object';
 import { gt } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
@@ -10,7 +9,6 @@ import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 
 export default class extends Component {
-  @service session;
   @service router;
 
   @tracked _query = '';
@@ -74,12 +72,6 @@ export default class extends Component {
         @current={{@controller.page}}
         @last={{@model.total_pages}}
       />
-    {{/if}}
-
-    {{#if this.session.isLogedIn}}
-      <LinkTo @route="admin.posts">admin</LinkTo>
-    {{else}}
-      <LinkTo @route="login">login</LinkTo>
     {{/if}}
   </template>
 }

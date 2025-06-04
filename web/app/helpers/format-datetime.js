@@ -1,11 +1,20 @@
-export default function formatDatetime(string) {
+export default function formatDatetime(string, format = 'datetime') {
   const date = new Date(string);
 
-  return new Intl.DateTimeFormat('ja-JP', {
-    year: 'numeric',
-    month: 'numeric',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  }).format(date);
+  const opts =
+    format === 'date'
+      ? {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        }
+      : {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+        };
+
+  return new Intl.DateTimeFormat('ja-JP', opts).format(date);
 }

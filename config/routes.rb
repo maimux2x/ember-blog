@@ -8,4 +8,8 @@ Rails.application.routes.draw do
   resource :token, only: :create
   resources :posts
   resource :feed, only: :show
+
+  get "*paths", to: "webs#show", constraints: ->(req) {
+    !req.xhr? && req.format.html?
+  }
 end

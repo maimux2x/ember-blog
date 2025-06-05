@@ -17,7 +17,7 @@ export default class extends Component {
 
     const { model } = this.args;
 
-    const response = await fetch(`${ENV.apiURL}/posts/${model.id}`, {
+    const response = await fetch(`${ENV.appURL}/api/posts/${model.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -49,12 +49,15 @@ export default class extends Component {
       return;
     }
 
-    const response = await fetch(`${ENV.apiURL}/posts/${this.args.model.id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${this.session.token}`,
+    const response = await fetch(
+      `${ENV.appURL}/api/posts/${this.args.model.id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${this.session.token}`,
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error('Faild to delete post');

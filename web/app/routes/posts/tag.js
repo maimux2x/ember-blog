@@ -4,7 +4,7 @@ import ENV from 'web/config/environment';
 
 export default class PostsTagRoute extends Route {
   async model({ tag_name }) {
-    const url = new URL(`${ENV.apiURL}/posts`);
+    const url = new URL(`${ENV.appURL}/api/posts`);
     url.searchParams.set('tag_name', tag_name);
 
     const payload = await fetch(url).then((res) => res.json());

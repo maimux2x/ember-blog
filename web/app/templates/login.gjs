@@ -24,7 +24,7 @@ export default class extends Component {
 
     const { model } = this.args;
 
-    const response = await fetch(`${ENV.apiURL}/token`, {
+    const response = await fetch(`${ENV.appURL}/api/token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

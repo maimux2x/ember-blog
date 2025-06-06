@@ -10,7 +10,7 @@ export default class IndexRoute extends Route {
   };
 
   async model(args) {
-    const url = new URL(`${ENV.apiURL}/posts`);
+    const url = new URL(`${ENV.appURL}/api/posts`);
     url.searchParams.set('page', args.page);
     url.searchParams.set('query', args.query);
 

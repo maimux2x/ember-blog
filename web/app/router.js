@@ -15,9 +15,11 @@ Router.map(function () {
   this.route('admin', function () {
     this.route('posts', function () {
       this.route('new');
-      this.route('edit', { path: '/edit/:post_id' });
+      this.route('edit', { path: '/:post_id/edit' });
     });
   });
+
+  this.route('archive');
 
   this.route('login');
   this.route('logout');

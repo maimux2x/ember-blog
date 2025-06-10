@@ -4,12 +4,15 @@ import { action } from '@ember/object';
 import { modifier } from 'ember-modifier';
 import { runTask } from 'ember-lifeline';
 import { on } from '@ember/modifier';
+import { service } from '@ember/service';
 import autosizeModifier from 'web/modifiers/autosize';
 import autosize from 'autosize';
 import ENV from 'web/config/environment';
 import Post from './post';
 
 export default class PostFormComponent extends Component {
+  @service session;
+
   setTextarea = modifier((textarea) => {
     this.textarea = textarea;
   });
@@ -42,7 +45,8 @@ export default class PostFormComponent extends Component {
       const upload = new DirectUpload(
         file,
         `${ENV.appURL}/rails/active_storage/direct_uploads`,
-        {},
+        null,
+        { Authorization: `Bearer ${this.session.token}` },
       );
 
       upload.create((error, blob) => {

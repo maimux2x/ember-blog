@@ -39,7 +39,7 @@ export default class extends Component {
                 @route="admin.posts.edit"
                 @model={{post.id}}
               >{{post.title}}</LinkTo></td>
-            <td>{{formatDatetime post.created_at}}</td>
+            <td>{{formatDatetime post.createdAt}}</td>
           </tr>
         {{/each}}
       </tbody>

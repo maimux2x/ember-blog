@@ -1,5 +1,5 @@
 import Route from '@ember/routing/route';
-import Post from '../models/post';
+import Post from 'web/models/post';
 import ENV from 'web/config/environment';
 
 export default class ArchiveRoute extends Route {

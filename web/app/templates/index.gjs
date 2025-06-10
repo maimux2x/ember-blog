@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import Pagination from 'web/components/pagination';
 import Post from 'web/components/post';
 import { action } from '@ember/object';
-import { gt } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
 import { runTask } from 'ember-lifeline';
 import { service } from '@ember/service';
@@ -66,12 +65,10 @@ export default class extends Component {
       {{/each}}
     </div>
 
-    {{#if (gt @model.total_pages 1)}}
-      <Pagination
-        @route="index"
-        @current={{@controller.page}}
-        @last={{@model.total_pages}}
-      />
-    {{/if}}
+    <Pagination
+      @route="index"
+      @current={{@controller.page}}
+      @last={{@model.total_pages}}
+    />
   </template>
 }

@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import Pagination from 'web/components/pagination';
 import { LinkTo } from '@ember/routing';
 import { service } from '@ember/service';
 import formatDatetime from 'web/helpers/format-datetime';
@@ -26,5 +27,11 @@ export default class extends Component {
         </LinkTo>
       {{/each}}
     </div>
+
+    <Pagination
+      @route="archive"
+      @current={{@controller.page}}
+      @last={{@model.total_pages}}
+    />
   </template>
 }

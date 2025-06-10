@@ -3,7 +3,6 @@ import formatDatetime from 'web/helpers/format-datetime';
 import Pagination from 'web/components/pagination';
 import { LinkTo } from '@ember/routing';
 import { action } from '@ember/object';
-import { gt } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
@@ -46,13 +45,11 @@ export default class extends Component {
       </tbody>
     </table>
 
-    {{#if (gt @model.total_pages 1)}}
-      <Pagination
-        @route="admin.posts"
-        @current={{@controller.page}}
-        @last={{@model.total_pages}}
-      />
-    {{/if}}
+    <Pagination
+      @route="admin.posts"
+      @current={{@controller.page}}
+      @last={{@model.total_pages}}
+    />
 
     <div class="mt-3">
       <LinkTo @route="admin.posts.new">New</LinkTo>

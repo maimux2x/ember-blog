@@ -14,5 +14,7 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    path_to_openapi = Rails.root.join("schema", "openapi.yml")
+    ActionDispatch::IntegrationTest.include Skooma::Minitest[path_to_openapi]
   end
 end

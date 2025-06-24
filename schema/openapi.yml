@@ -1,0 +1,255 @@
+openapi: 3.1.0
+
+info:
+  title: Ember blog API
+  version: 1.0.0
+
+servers:
+  - url: https://blog.maimux2x.com/api
+
+paths:
+  /token:
+    post:
+      summary: Create token
+      description: |
+        Takes an `email` and a `password` and generates a Bearer token for authentication.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '201':
+          description: Token created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [token]
+                properties:
+                  token:
+                    type: string
+                    description: Bearer token
+        '401':
+          description: Failed authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [error]
+                properties:
+                  error:
+                    type: string
+  /posts:
+    get:
+      summary: Get posts
+      description: |
+        Get a list of Post.
+      parameters:
+        - in: query
+          name: page
+
+          description: |
+            The page number to return. The default is 1.
+
+          schema:
+            type: integer
+            default: 1
+
+        - in: query
+          name: query
+
+          description: |
+            The search string.
+
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    post:
+      security:
+        - BearerAuth: []
+      summary: Create post
+      description: |
+        Create a new post.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    body:
+                      type: string
+                    tag_names:
+                      type: array
+                      items:
+                        type: string
+                  required:
+                    - title
+                    - body
+                    - tag_names
+              required:
+                - post
+      responses:
+        "201":
+          description: Created
+        "422":
+          description: Parameters are invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    title:
+                      type: array
+                      items:
+                        type: string
+                    body:
+                      type: array
+                      items:
+                        type: string
+
+  /posts/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+
+    get:
+      description: Get a single post.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+                  body:
+                    type: string
+                  tag_names:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - id
+                  - title
+                  - body
+                  - tag_names
+        "404":
+          description: The post could not be found
+    patch:
+      security:
+        - BearerAuth: []
+      description: Update a post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    body:
+                      type: string
+                    tag_names:
+                      type: array
+                      items:
+                        type: string
+                  required:
+                    - title
+                    - body
+                    - tag_names
+              required:
+                - post
+      responses:
+        "200":
+          description: Updated
+        "404":
+          description: The post could not be found
+        "422":
+          description: Parameters are invalid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    title:
+                      type: array
+                      items:
+                        type: string
+                    body:
+                      type: array
+                      items:
+                        type: string
+    put:
+      security:
+        - BearerAuth: []
+      description: Update a post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                post:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    body:
+                      type: string
+                    tag_names:
+                      type: array
+                      items:
+                        type: string
+                  required:
+                    - title
+                    - body
+                    - tag_names
+              required:
+                - post
+      responses:
+        "200":
+          description: Updated
+    delete:
+      security:
+        - BearerAuth: []
+      description: Delete a post
+      responses:
+        "200":
+          description: Deleted
+        "404":
+          description: NotFound
+components:
+  securitySchemes:
+    BearerAuth: { type: http, scheme: bearer, bearerFormat: JWT }

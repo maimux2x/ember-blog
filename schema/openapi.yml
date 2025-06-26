@@ -41,14 +41,7 @@ paths:
                     description: Bearer token
         '401':
           description: Failed authentication
-          content:
-            application/json:
-              schema:
-                type: object
-                required: [error]
-                properties:
-                  error:
-                    type: string
+
   /posts:
     get:
       summary: Get posts

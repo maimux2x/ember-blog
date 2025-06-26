@@ -28,5 +28,6 @@ group :development, :test do
 end
 
 group :test do
+  gem "skooma"
   gem "webmock"
 end

@@ -1,0 +1,299 @@
+openapi: 3.1.0
+
+info:
+  title: Ember blog API
+  version: 1.0.0
+
+servers:
+  - url: https://blog.maimux2x.com/api
+
+paths:
+  /token:
+    post:
+      description: Takes an `email` and a `password` and generates a Bearer token for authentication.
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Credentials"
+
+      responses:
+        '201':
+          description: Token created
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                required: 
+                  - token
+
+                properties:
+                  token:
+                    type: string
+
+        '401':
+          description: Failed authentication
+
+  /posts:
+    get:
+      description: Get a list of Post.
+
+      parameters:
+        - in: query
+          name: page
+          description: The page number to return. The default is 1.
+
+          schema:
+            type: integer
+            default: 1
+
+        - in: query
+          name: query
+          description: The search string.
+
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: OK
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                required:
+                  - posts
+
+                properties:
+                  posts:
+                    type: array
+
+                    items:
+                      $ref: "#/components/schemas/PostResponse"
+
+    post:
+      security:
+        - BearerAuth: []
+
+      description: Create a new post.
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              required:
+                - post
+
+              properties:
+                post:
+                  $ref: "#/components/schemas/PostRequest"
+
+      responses:
+        "201":
+          description: Created
+
+        "422":
+          description: Parameters are invalid
+
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostInvalid"
+
+  /posts/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+
+        schema:
+          type: integer
+
+    get:
+      description: Get a single post.
+
+      responses:
+        "200":
+          description: OK
+
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostResponse"
+
+        "404":
+          description: The post could not be found
+
+    patch:
+      security:
+        - BearerAuth: []
+
+      description: Update a post
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              required:
+                - post
+
+              properties:
+                post:
+                  $ref: "#/components/schemas/PostRequest"
+
+      responses:
+        "200":
+          description: Updated
+
+        "404":
+          description: The post could not be found
+
+        "422":
+          description: Parameters are invalid
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PostInvalid"
+
+    put:
+      security:
+        - BearerAuth: []
+
+      description: Update a post
+
+      requestBody:
+        required: true
+
+        content:
+          application/json:
+            schema:
+              type: object
+
+              required:
+                - post
+
+              properties:
+                post:
+                  $ref: "#/components/schemas/PostRequest"
+
+      responses:
+        "200":
+          description: Updated
+
+    delete:
+      security:
+        - BearerAuth: []
+
+      description: Delete a post
+
+      responses:
+        "200":
+          description: Deleted
+
+        "404":
+          description: NotFound
+
+components:
+  securitySchemes:
+    BearerAuth: 
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  
+  schemas:
+    Credentials:
+      type: object
+
+      required: 
+        - email
+        - password
+
+      properties:
+        email:
+          type: string
+          format: email
+
+        password:
+          type: string
+          format: password
+
+    PostResponse:
+      type: object
+
+      required:
+        - id
+        - title
+        - body
+        - tag_names
+
+      properties:
+        id:
+          type: integer
+
+        title:
+          type: string
+
+        body:
+          type: string
+
+        tag_names:
+          type: array
+
+          items:
+            type: string
+
+    PostRequest:
+      type: object
+
+      required:
+        - title
+        - body
+        - tag_names
+
+      properties:
+        title:
+          type: string
+
+        body:
+          type: string
+
+        tag_names:
+          type: array
+
+          items:
+            type: string
+
+    PostInvalid:
+      type: object
+
+      required:
+        - errors
+
+      properties:
+        errors:
+          title:
+            type: array
+
+            items:
+              type: string
+
+          body:
+            type: array
+
+            items:
+              type: string

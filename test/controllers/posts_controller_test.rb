@@ -11,7 +11,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
         headers: { "Content-Type"=>"application/x-www-form-urlencoded" }
       )
 
-    token = JWT.encode({ user_id: users(:one).id }, Rails.application.secret_key_base)
+    token = JWT.encode({ user_id: users(:alice).id }, Rails.application.secret_key_base)
 
     post posts_url, **{
       params: { post: { title: "test", body: "Hello World" } },

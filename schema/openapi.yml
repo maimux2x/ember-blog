@@ -18,7 +18,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Credentials"
+              $ref: "#/components/schemas/LoginRequest"
 
       responses:
         '201':
@@ -27,14 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-
-                required: 
-                  - token
-
-                properties:
-                  token:
-                    type: string
+                $ref: "#/components/schemas/TokenResponse"
 
         '401':
           description: Failed authentication
@@ -46,7 +39,6 @@ paths:
       parameters:
         - in: query
           name: page
-          description: The page number to return. The default is 1.
 
           schema:
             type: integer
@@ -54,7 +46,12 @@ paths:
 
         - in: query
           name: query
-          description: The search string.
+
+          schema:
+            type: string
+
+        - in: query
+          name: tag_name
 
           schema:
             type: string
@@ -77,6 +74,9 @@ paths:
 
                     items:
                       $ref: "#/components/schemas/PostResponse"
+
+                  total_pages:
+                    type: number
 
     post:
       security:
@@ -216,7 +216,17 @@ components:
       bearerFormat: JWT
   
   schemas:
-    Credentials:
+    TokenResponse:
+      type: object
+
+      required: 
+        - token
+
+      properties:
+        token:
+          type: string
+
+    LoginRequest:
       type: object
 
       required: 
@@ -239,6 +249,7 @@ components:
         - id
         - title
         - body
+        - created_at
         - tag_names
 
       properties:
@@ -250,6 +261,10 @@ components:
 
         body:
           type: string
+
+        created_at:
+          type: string
+          format: date-time
 
         tag_names:
           type: array
@@ -286,14 +301,17 @@ components:
 
       properties:
         errors:
-          title:
-            type: array
+          type: object
 
-            items:
-              type: string
+          properties:
+            title:
+              type: array
 
-          body:
-            type: array
+              items:
+                type: string
 
-            items:
-              type: string
+            body:
+              type: array
+
+              items:
+                type: string

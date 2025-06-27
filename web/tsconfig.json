@@ -11,6 +11,7 @@
     "paths": {
       "web/tests/*": ["tests/*"],
       "web/*": ["app/*"],
+      "schema/*": ["../schema/*"],
       "*": ["types/*"]
     },
     "types": [

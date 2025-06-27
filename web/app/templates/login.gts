@@ -8,6 +8,10 @@ import ENV from 'web/config/environment';
 import type RouterService from '@ember/routing/router-service';
 import type SessionService from 'web/services/session';
 import type { Login } from 'web/routes/login';
+import type { paths } from 'schema/openapi';
+
+type Payload =
+  paths['/token']['post']['responses']['201']['content']['application/json'];
 
 interface Signature {
   Args: {
@@ -50,7 +54,7 @@ export default class extends Component<Signature> {
     if (!response.ok) {
       model.error = 'Login failed';
     } else {
-      const json = (await response.json()) as { token: string };
+      const json = (await response.json()) as Payload;
       this.session.storeToken(json.token);
 
       this.router.transitionTo('admin.posts');

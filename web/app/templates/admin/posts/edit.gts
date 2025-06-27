@@ -11,6 +11,10 @@ import type RouterService from '@ember/routing/router-service';
 import type SessionService from 'web/services/session';
 import type ToastService from 'web/services/toast';
 import type PostModel from 'web/models/post';
+import type { paths } from 'schema/openapi';
+
+type InvalidPayload =
+  paths['/posts/{id}']['patch']['responses']['422']['content']['application/json'];
 
 interface Signature {
   Args: {
@@ -46,9 +50,7 @@ export default class extends Component<Signature> {
     });
 
     if (!response.ok) {
-      const json = (await response.json()) as {
-        errors: Record<string, string[]>;
-      };
+      const json = (await response.json()) as InvalidPayload;
 
       model.errors = json.errors;
     } else {

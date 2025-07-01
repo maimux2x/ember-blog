@@ -148,12 +148,13 @@ export default class PostFormComponent extends Component<Signature> {
           <div class="mb-3">
             <label for="body" class="form-label">Body</label>
             <textarea
+              value={{@post.body}}
               {{autosizeModifier}}
               {{this.setTextarea}}
               id="body"
               class="form-control {{if (get @post.errors 'body') 'is-invalid'}}"
               {{on "input" this.setBody}}
-            >{{@post.body}}</textarea>
+            ></textarea>
             {{#each (get @post.errors "body") as |error|}}
               <div class="invalid-feedback">
                 {{error}}

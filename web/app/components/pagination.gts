@@ -33,7 +33,10 @@ export default class PaginationComponent extends Component<Signature> {
     {{#if (gt @last 1)}}
       <nav class="d-flex justify-content-center" ...attributes>
         <ul class="pagination">
-          <li class="page-item {{unless this.prev 'disabled'}}">
+          <li
+            class="page-item {{unless this.prev 'disabled' ''}}"
+            data-test-start
+          >
             {{#if this.prev}}
               <LinkTo
                 @route={{@route}}
@@ -49,7 +52,10 @@ export default class PaginationComponent extends Component<Signature> {
               </a>
             {{/if}}
           </li>
-          <li class="page-item {{unless this.prev 'disabled'}}">
+          <li
+            class="page-item {{unless this.prev 'disabled' ''}}"
+            data-test-prev
+          >
             {{#if this.prev}}
               <LinkTo
                 @route={{@route}}
@@ -67,7 +73,10 @@ export default class PaginationComponent extends Component<Signature> {
           </li>
 
           {{#each this.pages as |page|}}
-            <li class="page-item {{if (eq page @current) 'active'}}">
+            <li
+              class="page-item {{if (eq page @current) 'active' ''}}"
+              data-test-page={{page}}
+            >
               <LinkTo
                 @route={{@route}}
                 @query={{hash page=page}}
@@ -78,7 +87,10 @@ export default class PaginationComponent extends Component<Signature> {
             </li>
           {{/each}}
 
-          <li class="page-item {{unless this.next 'disabled'}}">
+          <li
+            class="page-item {{unless this.next 'disabled' ''}}"
+            data-test-next
+          >
             {{#if this.next}}
               <LinkTo
                 @route={{@route}}
@@ -94,7 +106,10 @@ export default class PaginationComponent extends Component<Signature> {
               </a>
             {{/if}}
           </li>
-          <li class="page-item {{unless this.next 'disabled'}}">
+          <li
+            class="page-item {{unless this.next 'disabled' ''}}"
+            data-test-last
+          >
             {{#if this.next}}
               <LinkTo
                 @route={{@route}}

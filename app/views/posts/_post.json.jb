@@ -1,6 +1,6 @@
 {
   id:         post.id,
-  created_at: post.created_at,
+  created_at: post.created_at.iso8601,
   title:      post.title,
   body:       post.body,
   tag_names:  post.tag_names

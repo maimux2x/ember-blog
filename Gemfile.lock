@@ -364,7 +364,7 @@ GEM
       ffi (~> 1.12)
       logger
     securerandom (0.4.1)
-    skooma (0.3.6)
+    skooma (0.3.7)
       json_skooma (~> 0.2.5)
       zeitwerk (~> 2.6)
     solid_cable (3.0.12)

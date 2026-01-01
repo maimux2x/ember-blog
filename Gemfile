@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.1"
 
 gem "active_storage_validations"
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.21"
 gem "bootsnap", require: false
 gem "commonmarker"
 gem "image_processing", ">= 1.2"

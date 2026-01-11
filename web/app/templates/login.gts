@@ -25,12 +25,12 @@ export default class extends Component<Signature> {
 
   @action
   setEmail(e: Event) {
-    this.args.model.email = (e as InputEvent).data ?? '';
+    this.args.model.email = (e.target as HTMLInputElement).value;
   }
 
   @action
   setPassword(e: Event) {
-    this.args.model.password = (e as InputEvent).data ?? '';
+    this.args.model.password = (e.target as HTMLInputElement).value;
   }
 
   @action

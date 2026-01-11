@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.2"
 
 gem "active_storage_validations"
 gem "bcrypt", "~> 3.1.21"
@@ -28,6 +28,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "minitest", "~> 5.25"
   gem "skooma"
   gem "webmock"
 end

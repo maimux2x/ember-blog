@@ -41,7 +41,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.expect(post: [ :title, :body, tag_names: [] ])
+    params.expect(post: [ :title, :body, :published_at, tag_names: [] ])
   end
 
   def publish

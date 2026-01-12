@@ -55,7 +55,7 @@ export default class extends Component<Signature> {
                 @route="admin.posts.edit"
                 @model={{post.id}}
               >{{post.title}}</LinkTo></td>
-            <td>{{formatDatetime post.createdAt}}</td>
+            <td>{{formatDatetime post.publishedAt}}</td>
           </tr>
         {{/each}}
       </tbody>

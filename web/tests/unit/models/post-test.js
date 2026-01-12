@@ -18,7 +18,7 @@ module('Unit | Model | post', function (hooks) {
 
     assert.strictEqual(post.id, 1);
     assert.strictEqual(
-      post.createdAt.toISOString(),
+      post.publishedAt.toISOString(),
       '2025-07-01T01:04:51.000Z',
     );
     assert.strictEqual(post.title, 'test');

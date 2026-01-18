@@ -28,7 +28,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "minitest", "~> 6.0"
+  gem "minitest", "~> 5.25"
   gem "skooma"
   gem "webmock"
 end

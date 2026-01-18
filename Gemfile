@@ -6,6 +6,7 @@ gem "active_storage_validations"
 gem "bcrypt", "~> 3.1.21"
 gem "bootsnap", require: false
 gem "commonmarker"
+gem "csv"
 gem "image_processing", ">= 1.2"
 gem "kaminari"
 gem "jb"

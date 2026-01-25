@@ -2,9 +2,7 @@ class CSVImportsController < ApplicationController
   before_action :verify_token, only: %i[create]
 
   def create
-    import = CSVImport.new
-    import.file.attach(csv_import_params[:file])
-    import.save!
+    import = CSVImport.create!(file: csv_import_params[:file])
 
     CSVImportJob.perform_later import
   end

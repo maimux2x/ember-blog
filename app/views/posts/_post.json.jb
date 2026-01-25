@@ -1,7 +1,7 @@
 {
-  id:         post.id,
-  created_at: post.created_at.iso8601,
-  title:      post.title,
-  body:       post.body,
-  tag_names:  post.tag_names
+  id:           post.id,
+  published_at: post.published_at.iso8601,
+  title:        post.title,
+  body:         post.body,
+  tag_names:    post.tag_names
 }

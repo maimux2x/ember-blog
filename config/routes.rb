@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   scope :api, defaults: { format: :json } do
     resource :token, only: :create
     resources :posts
+
+    resources :csv_imports, only: %i[create]
   end
 
   get "*paths", to: "webs#show", constraints: ->(req) {

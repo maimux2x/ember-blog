@@ -14,7 +14,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     token = JWT.encode({ user_id: users(:alice).id }, Rails.application.secret_key_base)
 
     post posts_url, **{
-      params: { post: { title: "test", body: "Hello World" } },
+      params: { post: { title: "test", body: "Hello World", published_at: "2024-01-01 00:00:00" } },
       headers: { authorization: "Bearer #{token}" }
     }
 

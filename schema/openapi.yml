@@ -249,7 +249,7 @@ components:
         - id
         - title
         - body
-        - created_at
+        - published_at
         - tag_names
 
       properties:
@@ -263,6 +263,10 @@ components:
           type: string
 
         created_at:
+          type: string
+          format: date-time
+
+        published_at:
           type: string
           format: date-time
 

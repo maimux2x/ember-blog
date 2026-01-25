@@ -42,14 +42,16 @@ export default class extends Component<Signature> {
 
   @action
   selectFile(e: Event) {
-    this.file = (e.target! as HTMLInputElement).files?.[0]
+    this.file = (e.target! as HTMLInputElement).files?.[0];
   }
 
   @action
   import(e: Event) {
     e.preventDefault();
 
-    if(!this.file) { return; }
+    if (!this.file) {
+      return;
+    }
 
     const upload = new DirectUpload(
       this.file,
@@ -57,30 +59,32 @@ export default class extends Component<Signature> {
       {
         directUploadWillCreateBlobWithXHR: (xhr: XMLHttpRequest) => {
           xhr.setRequestHeader('Authorization', `Bearer ${this.session.token}`);
-        }
-      }
+        },
+      },
     );
 
-    upload.create(async (err: Error | null, blob: { signed_id: string }) => {
+    upload.create((err: Error | null, blob: { signed_id: string }) => {
       if (err) {
         alert(`Upload failed: ${err.message}`);
         return;
       }
 
-      const res = await fetch(`${ENV.appURL}/api/csv_imports`, {
-        method: 'POST',
+      void (async () => {
+        await fetch(`${ENV.appURL}/api/csv_imports`, {
+          method: 'POST',
 
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.session.token}`,
-        },
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${this.session.token}`,
+          },
 
-        body: JSON.stringify({
-          csv_import: {
-            file: blob.signed_id
-          }
-        })
-      });
+          body: JSON.stringify({
+            csv_import: {
+              file: blob.signed_id,
+            },
+          }),
+        });
+      })();
     });
   }
 
@@ -122,10 +126,18 @@ export default class extends Component<Signature> {
       <LinkTo @route="admin.posts.new">New</LinkTo>
     </div>
 
+    <hr />
+
     <form {{on "submit" this.import}}>
       <div class="mb-3">
-        <label class="form-label">CSV</label>
-        <input type="file" class="form-control" accept=".csv" {{on "change" this.selectFile}} />
+        <label class="form-label">CSV
+          <input
+            type="file"
+            class="form-control"
+            accept=".csv"
+            {{on "change" this.selectFile}}
+          />
+        </label>
       </div>
       <button type="submit" class="btn btn-primary">Import</button>
     </form>

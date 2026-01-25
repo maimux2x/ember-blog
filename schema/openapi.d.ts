@@ -287,7 +287,7 @@ export interface components {
             title: string;
             body: string;
             /** Format: date-time */
-            created_at: string;
+            created_at?: string;
             /** Format: date-time */
             published_at: string;
             tag_names: string[];

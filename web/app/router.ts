@@ -19,6 +19,8 @@ Router.map(function () {
     this.route('posts', function () {
       this.route('new');
       this.route('edit', { path: '/:post_id/edit' });
+      this.route('imports');
+      this.route('import', { path: '/imports/:import_id' });
     });
   });
 

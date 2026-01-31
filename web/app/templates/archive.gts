@@ -38,7 +38,7 @@ export default class extends Component<Signature> {
             {{post.title}}
           </div>
           <time>
-            {{formatDatetime post.createdAt "date"}}
+            {{formatDatetime post.publishedAt "date"}}
           </time>
         </LinkTo>
       {{/each}}

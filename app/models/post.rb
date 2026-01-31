@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   validates :body, presence: true
   validates :images, content_type: [ "image/png", "image/jpeg" ]
 
+  before_validation :set_published_at, on: :create
   before_save :set_images
   after_commit :purge_unattached_blobs
 
@@ -22,6 +23,10 @@ class Post < ApplicationRecord
   end
 
   private
+
+  def set_published_at
+    self.published_at ||= Time.current
+  end
 
   def set_images
     signed_ids = []

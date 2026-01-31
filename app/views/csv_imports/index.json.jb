@@ -1,0 +1,4 @@
+{
+  imports: render(partial: "import", collection: @imports),
+  total_pages: @imports.total_pages
+}

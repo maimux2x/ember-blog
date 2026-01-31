@@ -8,7 +8,7 @@ module('Unit | Model | post', function (hooks) {
   test('it exists', function (assert) {
     const json = {
       id: 1,
-      created_at: '2025-07-01T01:04:51Z',
+      published_at: '2025-07-01T01:04:51Z',
       title: 'test',
       body: 'Hello world',
       tag_names: ['test1', 'test2'],
@@ -18,7 +18,7 @@ module('Unit | Model | post', function (hooks) {
 
     assert.strictEqual(post.id, 1);
     assert.strictEqual(
-      post.createdAt.toISOString(),
+      post.publishedAt.toISOString(),
       '2025-07-01T01:04:51.000Z',
     );
     assert.strictEqual(post.title, 'test');

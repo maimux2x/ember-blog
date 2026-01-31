@@ -269,6 +269,95 @@ export interface paths {
         };
         trace?: never;
     };
+    "/csv_imports": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Get a list of CSV imports. */
+        get: {
+            parameters: {
+                query?: {
+                    page?: number;
+                    query?: string;
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            csv_imports: components["schemas"]["CSVImportResponse"][];
+                            total_pages?: number;
+                        };
+                    };
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/csv_imports/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        /** @description Get a single CSV import. */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description OK */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["CSVImportResponse"];
+                    };
+                };
+                /** @description The post could not be found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -302,6 +391,17 @@ export interface components {
                 title?: string[];
                 body?: string[];
             };
+        };
+        CSVImportResponse: {
+            id: number;
+            /** @enum {string} */
+            status: "waiting" | "processing" | "completed" | "failed";
+            messages: {
+                line: number;
+                message: string;
+            }[] | null;
+            /** Format: date-time */
+            created_at: string;
         };
     };
     responses: never;

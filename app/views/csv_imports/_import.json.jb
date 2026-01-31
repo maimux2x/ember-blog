@@ -1,0 +1,6 @@
+{
+  id:         import.id,
+  status:     import.status,
+  messages:   import.errors,
+  created_at: import.created_at
+}

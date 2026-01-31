@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resource :token, only: :create
     resources :posts
 
-    resources :csv_imports, only: %i[create]
+    resources :csv_imports, only: %i[index show create]
   end
 
   get "*paths", to: "webs#show", constraints: ->(req) {

@@ -2,7 +2,7 @@ class CSVImportsController < ApplicationController
   before_action :verify_token, only: %i[create]
 
   def index
-    @imports = CSCImport.order(created_at).page(params[:page])
+    @imports = CSVImport.order(:created_at).page(params[:page])
   end
 
   def show
@@ -14,7 +14,7 @@ class CSVImportsController < ApplicationController
 
     CSVImportJob.perform_later import
 
-    head :ok
+    render json: { id: import.id }, status: :created
   end
 
   private

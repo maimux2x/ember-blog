@@ -15,7 +15,7 @@ export default class CsvImports extends Route {
     },
   };
 
-  async model({ page }: { page: number }) {
+  async model({ page = 1 }: { page?: number }) {
     const url = new URL(`${ENV.appURL}/api/csv_imports`);
 
     url.searchParams.set('page', page.toString());

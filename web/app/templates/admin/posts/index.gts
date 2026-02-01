@@ -69,8 +69,7 @@ export default class extends Component<Signature> {
         return;
       }
 
-      void (async () => {
-        await fetch(`${ENV.appURL}/api/csv_imports`, {
+      void fetch(`${ENV.appURL}/api/csv_imports`, {
           method: 'POST',
 
           headers: {
@@ -83,8 +82,11 @@ export default class extends Component<Signature> {
               file: blob.signed_id,
             },
           }),
+        })
+        .then((res) => res.json())
+        .then(({ id }: { id: number }) => {
+          this.router.transitionTo('admin.posts.import', id);
         });
-      })();
     });
   }
 

@@ -35,6 +35,11 @@ export default class extends Component {
             <li class="nav-item">
               <LinkTo @route="archive" class="nav-link">archive</LinkTo>
             </li>
+            {{#if this.session.isLogedIn}}
+              <li class="nav-item">
+                <LinkTo @route="admin.posts.imports" class="nav-link">CSV Imports</LinkTo>
+              </li>
+            {{/if}}
           </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">

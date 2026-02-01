@@ -1,1 +1,1 @@
-render @import
+render(@import)

@@ -37,7 +37,8 @@ export default class extends Component {
             </li>
             {{#if this.session.isLogedIn}}
               <li class="nav-item">
-                <LinkTo @route="admin.posts.imports" class="nav-link">CSV Imports</LinkTo>
+                <LinkTo @route="admin.posts.imports" class="nav-link">CSV
+                  Imports</LinkTo>
               </li>
             {{/if}}
           </ul>

@@ -70,19 +70,19 @@ export default class extends Component<Signature> {
       }
 
       void fetch(`${ENV.appURL}/api/csv_imports`, {
-          method: 'POST',
+        method: 'POST',
 
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${this.session.token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${this.session.token}`,
+        },
+
+        body: JSON.stringify({
+          csv_import: {
+            file: blob.signed_id,
           },
-
-          body: JSON.stringify({
-            csv_import: {
-              file: blob.signed_id,
-            },
-          }),
-        })
+        }),
+      })
         .then((res) => res.json())
         .then(({ id }: { id: number }) => {
           this.router.transitionTo('admin.posts.import', id);

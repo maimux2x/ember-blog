@@ -37,9 +37,10 @@ export default <template>
   />
 </template> satisfies TOC<{
   Args: {
+    controller: AdminPostsCsvImportsIndexController;
     model: {
       csvImports: CsvImport[];
       totalPages: number;
-    }
-  }
+    };
+  };
 }>;

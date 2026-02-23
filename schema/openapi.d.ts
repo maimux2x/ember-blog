@@ -338,7 +338,7 @@ export interface paths {
                         [name: string]: unknown;
                     };
                     content: {
-                        "application/json": components["schemas"]["CSVImportResponse"];
+                        "application/json": components["schemas"]["CSVImportShowResponse"];
                     };
                 };
                 /** @description The post could not be found */
@@ -402,6 +402,9 @@ export interface components {
             }[] | null;
             /** Format: date-time */
             created_at: string;
+        };
+        CSVImportShowResponse: components["schemas"]["CSVImportResponse"] & {
+            in_progress: boolean;
         };
     };
     responses: never;

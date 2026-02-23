@@ -7,4 +7,11 @@ class CSVImport < ApplicationRecord
     completed:  2,
     failed:     99
   }
+
+  def in_progress?
+    status.in?(%w[
+      waiting
+      processing
+    ])
+  end
 end

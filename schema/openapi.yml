@@ -267,7 +267,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CSVImportResponse"
+                $ref: "#/components/schemas/CSVImportShowResponse"
 
         "404":
           description: The post could not be found
@@ -423,3 +423,13 @@ components:
         created_at:
           type: string
           format: date-time
+
+    CSVImportShowResponse:
+      allOf:
+        - $ref: "#/components/schemas/CSVImportResponse"
+        - type: object
+          required:
+            - in_progress
+          properties:
+            in_progress:
+              type: boolean

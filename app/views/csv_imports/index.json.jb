@@ -1,0 +1,4 @@
+{
+  csv_imports: render(partial: "csv_import", collection: @imports),
+  total_pages: @imports.total_pages
+}

@@ -208,6 +208,70 @@ paths:
         "404":
           description: NotFound
 
+  /csv_imports:
+    get:
+      description: Get a list of CSV imports.
+
+      parameters:
+        - in: query
+          name: page
+
+          schema:
+            type: integer
+            default: 1
+
+        - in: query
+          name: query
+
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: OK
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                required:
+                  - csv_imports
+
+                properties:
+                  csv_imports:
+                    type: array
+
+                    items:
+                      $ref: "#/components/schemas/CSVImportResponse"
+
+                  total_pages:
+                    type: number
+
+  /csv_imports/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+
+        schema:
+          type: integer
+
+    get:
+      description: Get a single CSV import.
+
+      responses:
+        "200":
+          description: OK
+
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CSVImportShowResponse"
+
+        "404":
+          description: The post could not be found
+
 components:
   securitySchemes:
     BearerAuth: 
@@ -249,7 +313,7 @@ components:
         - id
         - title
         - body
-        - created_at
+        - published_at
         - tag_names
 
       properties:
@@ -263,6 +327,10 @@ components:
           type: string
 
         created_at:
+          type: string
+          format: date-time
+
+        published_at:
           type: string
           format: date-time
 
@@ -315,3 +383,53 @@ components:
 
               items:
                 type: string
+
+    CSVImportResponse:
+      type: object
+
+      required:
+        - id
+        - status
+        - created_at
+        - messages
+
+      properties:
+        id:
+          type: integer
+
+        status:
+          type: string
+
+          enum:
+            - waiting
+            - processing
+            - completed
+            - failed
+
+        messages:
+          type: array
+          nullable: true
+          items:
+            type: object
+            required:
+              - line
+              - message
+            properties:
+              line:
+                type: integer
+              message:
+                type: string
+
+        created_at:
+          type: string
+          format: date-time
+
+    CSVImportShowResponse:
+      allOf:
+        - $ref: "#/components/schemas/CSVImportResponse"
+        - type: object
+          required:
+            - in_progress
+          properties:
+            in_progress:
+              type: boolean

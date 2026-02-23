@@ -25,9 +25,10 @@ class PostsTest < ActionDispatch::IntegrationTest
 
       params: {
         post: {
-          title:     "blog test",
-          body:      "hello, world!",
-          tag_names: [ "test" ]
+          title:        "blog test",
+          body:         "hello, world!",
+          published_at: "2024-01-01 00:00:00",
+          tag_names:    [ "test" ]
         }
       },
 
@@ -56,9 +57,10 @@ class PostsTest < ActionDispatch::IntegrationTest
 
       params: {
         post: {
-          title:     "",
-          body:      "",
-          tag_names: []
+          title:        "",
+          body:         "",
+          published_at: "",
+          tag_names:    []
         }
       },
 
@@ -78,9 +80,10 @@ class PostsTest < ActionDispatch::IntegrationTest
 
       params: {
         post: {
-          title:     "blog test",
-          body:      "hello, rails!",
-          tag_names: [ "test" ]
+          title:        "blog test",
+          body:         "hello, rails!",
+          published_at: "2024-01-01 00:00:00",
+          tag_names:    [ "test" ]
         }
       },
 

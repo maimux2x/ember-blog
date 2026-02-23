@@ -1,0 +1,8 @@
+{
+  **csv_import.slice(
+    :id,
+    :status,
+    :messages,
+    :created_at
+  )
+}
